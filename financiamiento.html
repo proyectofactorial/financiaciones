@@ -1,0 +1,46 @@
+<head>
+  <title>financiamiento</title>
+</head>
+
+<body>
+  <div id="container">
+    <div class="nodrop">
+      <h1>Financiate papu</h1>
+
+      {{> dest}}
+      {{> flines}}
+    </div>
+    {{> drop}}
+  </div>
+</body>
+
+<template name="dest">
+{{#each dest}}
+  <button>{{name}}</button>
+{{/each}}
+</template>
+
+<template name="drop">
+  <div class="drop center" style="display: none;" >
+    <i class="fa fa-download huge"></i>
+  </div>
+</template>
+
+<template name="flines">
+<div class="lines">
+  {{#each lines}}
+    {{> line}}
+  {{/each}}
+</div>
+</template>
+
+<template name="line">
+<div class="line">
+  <h1>{{name}}</h1>
+  <ul>
+    {{#each keys}}
+      <li><span>{{key}}: </span>{{value}}</li>
+    {{/each}}
+  </ul>
+</div>
+</template>

@@ -1,0 +1,46 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial;
+  overflow: hidden;
+}
+
+#container {
+  width: 100%;
+  margin: 15px auto 0 auto;
+  overflow: hidden;
+}
+
+.nodrop, .drop, .error-messages {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.drop {
+    width: 50%;
+    height: 50%;
+
+    margin: 10%;
+    opacity: 0.4;
+    padding: 10%;
+    border: dashed 20px black;
+    border-radius: 100px;
+}
+
+.drop i {
+    position: absolute;
+    display: block;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.huge {
+    font-size: 500px;
+}
