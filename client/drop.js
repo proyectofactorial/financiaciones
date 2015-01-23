@@ -1,5 +1,4 @@
-var dict = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-            'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+var dict = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var SHEET_NAME = 'Públicas';
 
 var error = function (args) { console.error (args) };
@@ -90,7 +89,7 @@ Template.drop.rendered = function () {
                 if (!sheet)
                         return error ("Can't find sheet: " + SHEET_NAME + ' or ', fsheet);
 
-                dict.forEach(function (k) {
+                _.each (dict, function (k) {
                         var cell = sheet[k + i];
                         if (!cell)
                                 return ; /* no cell at "${k}${i}" */
