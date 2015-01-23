@@ -38,7 +38,7 @@ Template.search.events({
 });
 
 Template.dest.helpers({
-        dest: dest
+        dest: dest,
 });
 
 Template.dest.events({
@@ -52,7 +52,7 @@ Template.flines.helpers({
         lines: function() {
                 DestDep.depend();
                 return Flines.find(filter).fetch();
-        }
+        },
 });
 
 Template.line.helpers({
