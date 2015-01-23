@@ -8,6 +8,7 @@
       <h1>Financiate papu</h1>
 
       {{> dest}}
+      {{> search}}
       {{> flines}}
     </div>
     {{> drop}}
@@ -16,8 +17,15 @@
 
 <template name="dest">
 {{#each dest}}
-  <button>{{name}}</button>
+  <button class="btn btn-default">{{name}}<span>:{{key}}</span></button>
 {{/each}}
+</template>
+
+<template name="search">
+<div class="input-group">
+  <input type="search" class="form-control" placeholder="Buscar…">
+  <span class="glyphicon glyphicon-search form-control-feedback"></span>
+</div>
 </template>
 
 <template name="drop">
@@ -28,19 +36,28 @@
 
 <template name="flines">
 <div class="lines">
-  {{#each lines}}
-    {{> line}}
-  {{/each}}
+  {{#if lines}}
+    {{#each lines}}
+      {{> line}}
+    {{/each}}
+  {{else}}
+    <div class="well">
+      <p>No results…</p>
+    </div>
+  {{/if}}
+
 </div>
 </template>
 
 <template name="line">
-<div class="line">
-  <h1>{{name}}</h1>
-  <ul>
-    {{#each keys}}
-      <li><span>{{key}}: </span>{{value}}</li>
-    {{/each}}
-  </ul>
+<div class="line well">
+  <h1>{{{filteredName}}}</h1>
+  <div class="highlight">
+    <ul>
+      {{#each keys}}
+        <li><span>{{key}}: </span>{{value}}</li>
+      {{/each}}
+    </ul>
+  </div>
 </div>
 </template>

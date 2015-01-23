@@ -3,16 +3,39 @@ Meteor.subscribe('flines');
 
 var DestDep = new Deps.Dependency;
 
-var dest = [{name: 'artista',
-             key: 'G'},
-            {name: 'pyme',
-             key: 'P'},
-            {name: 'artesano',
-             key: 'N'},
-            {name: 'profesional',
-             key: 'E'}];
+var dest = [
+        {name: 'todos',
+         key: '.*'},
+        {name: 'artista',
+         key: 'G'},
+        {name: 'pyme',
+         key: 'P'},
+        {name: 'artesano',
+         key: 'N'},
+        {name: 'profesional',
+         key: 'E'}
+];
 
 var filter = {};
+
+Template.search.events({
+        'input input': function (e) {
+                var val = e.target.value;
+                if (val.length < 3) {
+                        if (filter.name) {
+                                delete filter.name;
+                                DestDep.changed();
+                        }
+                        return;
+                }
+
+                val = val.replace (/\s+/, '\\s*');
+                filter = _.extend (filter, {
+                        name: {$regex: new RegExp (val, 'i')}
+                });
+                DestDep.changed();
+        }
+});
 
 Template.dest.helpers({
         dest: dest
@@ -20,8 +43,8 @@ Template.dest.helpers({
 
 Template.dest.events({
         'click button': function () {
+                filter = {dest: {$regex: this.key}};
                 DestDep.changed();
-                filter = {dest: this.key};
         }
 });
 
@@ -41,5 +64,12 @@ Template.line.helpers({
                 });
                 return ret;
                 debugger;
+        },
+        filteredName: function () {
+                var name = HTML.toHTML(this.name);
+                if (! filter.name)
+                        return name;
+
+                return name.replace(filter.name['$regex'], '<mark>' + '$&' + '</mark>');
         }
 });
