@@ -51,11 +51,11 @@
 
 <template name="line">
 <div class="line well">
-  <h1>{{{filteredName}}}</h1>
+  <h1>{{{highlight field="name"}}}</h1>
   <div class="highlight">
     <ul>
       {{#each keys}}
-        <li><span>{{key}}: </span>{{value}}</li>
+        <li><span>{{key}}: </span>{{{highlight field="value"}}}</li>
       {{/each}}
     </ul>
   </div>

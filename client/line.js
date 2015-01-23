@@ -65,11 +65,15 @@ Template.line.helpers({
                 return ret;
                 debugger;
         },
-        filteredName: function () {
-                var name = HTML.toHTML(this.name);
-                if (! filter.name)
-                        return name;
+        highlight: function (kw) {
+                var field = kw.hash.field;
+                if (! this[field])
+                        return 'Error in Template';
 
-                return name.replace(filter.name['$regex'], '<mark>' + '$&' + '</mark>');
+                var item = HTML.toHTML(this[field]);
+                if (! filter.name)
+                        return item;
+
+                return item.replace(filter.name['$regex'], '<mark>' + '$&' + '</mark>');
         }
 });
