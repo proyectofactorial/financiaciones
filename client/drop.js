@@ -31,8 +31,7 @@ Template.drop.rendered = function () {
                                         wb = XLSX.read(data, {type: 'binary'});
                                 }
                                 if (!wb) {
-                                        error('Could not read: ' + name);
-                                        return;
+                                        return error('Could not read: ' + name);
                                 }
                                 try {
                                         insertData(parseWB(wb));
@@ -77,7 +76,7 @@ Template.drop.rendered = function () {
                 poto: /Plazo de otorgamiento/,
                 peje: /Plazo de ejecución/,
                 cont: /Contacto/
-        }
+        };
 
         function parseWB(wb) {
                 var fsheet = wb.SheetNames.pop();
@@ -92,7 +91,7 @@ Template.drop.rendered = function () {
                 _.each (dict, function (k) {
                         var cell = sheet[k + i];
                         if (!cell)
-                                return ; /* no cell at "${k}${i}" */
+                                return warn ('no cell at ' + k + i);
                         var value = cell.v;
                         if      (! value)
                                 return warn ('no value at: ' + k + i);
@@ -106,7 +105,7 @@ Template.drop.rendered = function () {
                                 }
                         });
                         if (!matched)
-                                return warn('ignoring: ' + value);
+                                return warn ('ignoring: ' + value);
                 });
 
                 /* i is the title, ignore that */;
