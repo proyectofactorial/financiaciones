@@ -6,7 +6,7 @@ var warn  = function (args) { console.warn  (args) };
 var log   = function (args) { console.log   (args) };
 
 Template.drop.rendered = function () {
-        var drop = document.getElementById('container');
+        var drop = document.getElementById('drop');
         function handleDrop(e) {
                 e.stopPropagation();
                 e.preventDefault();
