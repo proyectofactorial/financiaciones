@@ -39,11 +39,24 @@ Template.search.events({
 
 Template.dest.helpers({
         dest: dest,
+        active: function () {
+                DestDep.depend();
+                if (! filter.dest)
+                        return '';
+
+                if (filter.dest['$regex'] === this.key)
+                        return 'active';
+
+                return '';
+        }
+
 });
 
 Template.dest.events({
         'click button': function () {
-                filter = {dest: {$regex: this.key}};
+                filter = _.extend (filter, {
+                        dest: {$regex: this.key}
+                });
                 DestDep.changed();
         }
 });
@@ -60,7 +73,9 @@ Template.line.helpers({
                 var ret = _.filter(_.map(this, function (v, k) {
                         return {value: v, key: k};
                 }), function (item) {
-                        return ! item.key.match(/(_id|name)/);
+                        var key = item.key.match(/(_id|name|ben)/);
+                        var val = item.value && item.value.toString().match(/(N\/A|No dice)/i);
+                        return !key && !val;
                 });
                 return ret;
                 debugger;
