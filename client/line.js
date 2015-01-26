@@ -17,6 +17,7 @@ var dest = [
 ];
 
 var filter = {};
+var filterText;
 
 Template.search.events({
         'input input': function (e) {
@@ -29,9 +30,12 @@ Template.search.events({
                         return;
                 }
 
-                val = val.replace (/\s+/, '\\s*');
+                filterText = val.replace (/\s+/, '\\s*');
                 filter = _.extend (filter, {
-                        name: {$regex: new RegExp (val, 'i')}
+                        $or: [
+                                {name: {$regex: new RegExp (filterText, 'i')}},
+                                {req:  {$regex: new RegExp (filterText, 'i')}}
+                        ]
                 });
                 DestDep.changed();
         }
@@ -73,7 +77,7 @@ Template.line.helpers({
                 var ret = _.filter(_.map(this, function (v, k) {
                         return {value: v, key: k};
                 }), function (item) {
-                        var key = item.key.match(/(_id|name|obj)/);
+                        var key = item.key.match(/(_id|name|obj|page)/);
                         var val = item.value && item.value.toString().match(/(N\/A|No dice)/i);
                         return !key && !val;
                 });
@@ -82,13 +86,15 @@ Template.line.helpers({
         },
         highlight: function (kw) {
                 var field = kw.hash.field;
+
                 if (! this[field])
                         return 'Error in Template';
 
                 var item = HTML.toHTML(this[field]);
-                if (! filter.name)
+                if (! filterText)
                         return item;
 
-                return item.replace(filter.name['$regex'], '<mark>' + '$&' + '</mark>');
+                var r = new RegExp(filterText, 'i');
+                return item.replace(r, '<mark>' + '$&' + '</mark>');
         }
 });
