@@ -64,7 +64,7 @@ Template.dest.events({
 Template.flines.helpers({
         lines: function() {
                 DestDep.depend();
-                return Flines.find(filter).fetch();
+                return Flines.find(filter);
         },
 });
 

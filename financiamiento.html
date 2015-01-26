@@ -8,7 +8,6 @@
     <div class="row">
       <div class="col s12">
         <div class="nodrop">
-          {{> dest}}
           {{> flines}}
         </div>
         {{> drop}}
@@ -62,12 +61,6 @@
 
 </template>
 
-<template name="dest">
-{{#each dest}}
-  <button class="waves-effect waves-light btn btn-large {{active}}" >{{name}}<span>:{{key}}</span></button>
-{{/each}}
-</template>
-
 <template name="search">
 <div class="row">
   <form class="col s12">
@@ -78,40 +71,4 @@
       </div>
   </form>
 </div>
-</template>
-
-<template name="flines">
-<div class="lines row">
-  {{#if lines}}
-    {{#each lines}}
-      {{> line}}
-    {{/each}}
-  {{else}}
-    <div class="well">
-      <p>No results…</p>
-    </div>
-  {{/if}}
-
-</div>
-</template>
-
-<template name="line">
-  <div class="col s12 m6">
-    <div class="card z-depth-2">
-        <blockquote>{{ben}}</blockquote>
-      <div class="card-content teal white-text">
-        <span class="card-title activator white-text">{{{highlight field="name"}}}<i class="mdi-navigation-more-vert right"></i></span>
-      </div>
-      <div class="card-reveal teal white-text">
-        <span class="card-title white-textt">{{{highlight field="name"}}} <i class="mdi-navigation-close right"></i></span>
-        <div class="highlight grey-text text-darken-4">
-          <ul class="collection">
-            {{#each keys}}
-              <li class="collection-item"><span><b>{{key}}: </b></span>{{{highlight field="value"}}}</li>
-            {{/each}}
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
 </template>
