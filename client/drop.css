@@ -1,0 +1,21 @@
+.drop {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 50%;
+    height: 50%;
+
+    margin: 10%;
+    opacity: 0.4;
+    padding: 10%;
+    border: dashed 20px black;
+    border-radius: 100px;
+}
+
+.drop i {
+    position: absolute;
+    display: block;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
