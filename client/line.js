@@ -73,7 +73,7 @@ Template.line.helpers({
                 var ret = _.filter(_.map(this, function (v, k) {
                         return {value: v, key: k};
                 }), function (item) {
-                        var key = item.key.match(/(_id|name|ben)/);
+                        var key = item.key.match(/(_id|name|obj)/);
                         var val = item.value && item.value.toString().match(/(N\/A|No dice)/i);
                         return !key && !val;
                 });
