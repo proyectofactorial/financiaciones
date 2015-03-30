@@ -3,23 +3,36 @@
 </head>
 
 <body>
-  {{> navbar}}
-  <div id="container" class="card-panel teal lighten-2">
-    <div class="row">
-      <div class="col s12">
-        <div class="nodrop">
-          {{> flines}}
-        </div>
-        {{> drop}}
-      </div>
-    </div>
-  </div>
-  {{> footer}}
 </body>
+
+<template name="layout">
+    <div id="container" class="card-panel teal lighten-2">
+        {{> navbar}}
+        {{> yield}}
+        {{> footer}}
+    </div>
+</template>
+
+<template name="notFound">
+    404: not found
+</template>
+
+<template name="loading">
+    <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-red">
+            <div class="circle-clipper left">
+                <div class="circle"></div>
+            </div><div class="gap-patch">
+                <div class="circle"></div>
+            </div><div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+        </div>
+    </div>
+</template>
 
 <template name="navbar">
 <nav>
-
     <div class="nav-wrapper">
       <div class="col s12">
         <a href="#!" class="brand-logo"><span><i class="large mdi-social-cake"></i></span>Financiate Papu</a>
@@ -38,37 +51,85 @@
 
 <template name="footer">
 
-<footer class="page-footer">
-  <div class="container">
-    <div class="row">
-      <div class="col l6 s12">
-        <h5 class="white-text">Simple Demo</h5>
-        <p class="grey-text text-lighten-4">Hecho con {{> luv}} para Factorial!</p>
-      </div>
-      <div class="col l4 offset-l2 s12">
-        <h5 class="white-text">Links</h5>
-        <li><a class="grey-text text-lighten-3" href="https://github.com/xaiki">GitHub</a></li>
-      </div>
-    </div>
-  </div>
-  <div class="footer-copyright">
-      © 2014-2015 Niv Sardi
-      <div class="grey-text text-lighten-4 right">
-        Esta Página es <a href="#!">Software Libre</a> bajo licencia <a href="#!">AGPLv3</a>
-      </div>
-  </div>
-</footer>
+    <footer class="page-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Simple Demo</h5>
+                    <p class="grey-text text-lighten-4">Hecho con {{> luv}} para Factorial!</p>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Links</h5>
+                    <li><a class="grey-text text-lighten-3" href="https://github.com/xaiki">GitHub</a></li>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            © 2014-2015 Niv Sardi
+            <div class="grey-text text-lighten-4 right">
+                Esta Página es <a href="#!">Software Libre</a> bajo licencia <a href="#!">AGPLv3</a>
+            </div>
+        </div>
+    </footer>
 
 </template>
 
 <template name="search">
-<div class="row">
-  <form class="col s12">
-      <div class="input-field col s6">
-        <i class="mdi-action-search prefix"></i>
-        <input id="icon_prefix" type="text" class="validate">
-        <label for="icon_prefix">Buscar</label>
-      </div>
-  </form>
-</div>
+    <div class="row">
+        <form class="col s12">
+            <div class="input-field col s6">
+                <i class="mdi-action-search prefix"></i>
+                <input id="icon_prefix" type="text" class="validate">
+                <label for="icon_prefix">Buscar</label>
+            </div>
+        </form>
+    </div>
+</template>
+
+<template name="section">
+    <div class="col {{#if size}}{{size}}{{else}}m6{{/if}}">
+        <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+                <span class="card-title">{{label}}</span>
+            </div>
+            {{#if text}}
+                <div class="card-action yellow-text text-darken-2">
+                    {{text}}
+                </div>
+            {{/if}}
+        </div>
+    </div>
+</template>
+
+<template name="inicio">
+    <div class="col s12 m6">
+        <div class="row">
+            <a href="/tipo">{{> section size="s3 m3" name="coop" label="cooperativa de trabajo"}}</a>
+            <a href="/tipo">{{> section size="s3 m3" name="pyme" label="pymes"}}</a>
+            <a href="/tipo">{{> section size="s3 m3" name="bige" label="gran empresa"}}</a>
+            <a href="/tipo">{{> section size="s3 m3" name="init" label="emprendedor"}}</a>
+        </div>
+    </div>
+</template>
+
+<template name="tipo">
+    <div class="col s12 m6">
+        <div class="row">
+            <a href="/selector">{{> section name="anr" label="Aporte no reembolsable (ANR)" text="Son aquellos aportes de dinero no exigen devolución al organismo otorgante. Pueden financiar la totalidad o parte del proyecto."}}</a>
+                <a href="/selector">{{> section name="bif" label="Beneficios impositivos y fiscales (BIF)" text="Son los instrumentos que en general descuentan impestos nacionales    o reuperan un porcentaje de lo abonado."}}</a>
+                <a href="/selector">{{> section name="cts" label="Créditos a tasa subsidiada (CTS)" text="Son líneas de préstamos que se otorgan en condiciones más    favorables que las habituales en el mercado financiero tradicional."}}</a>
+                <a href="/selector">{{> section name="atc" label="Asistencia técnica y capacitación (ATC)" text="Incluye la prestación de servicios de asesoramiento o consultoría, en los temas pertienentes al proyecto. Pueden ser financiados total o parcialmente."}}</a>
+        </div>
+    </div>
+</template>
+
+<template name="selector">
+    <div class="row">
+        <div class="col s12">
+            <div class="nodrop">
+                {{> flines}}
+            </div>
+            {{> drop}}
+        </div>
+    </div>
 </template>

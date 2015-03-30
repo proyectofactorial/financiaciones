@@ -9,3 +9,4 @@ autopublish
 insecure
 twbs:bootstrap
 d0minikk:materialize-meteor
+iron:router
